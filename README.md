@@ -36,9 +36,9 @@ El reporte queda en `target/surefire-reports`. Una copia de la ejecucion complet
 | Jose | RF-09, RF-10 | CheckoutPage, CuentaPage | CompraTest, CuentaTest |
 
 ## Flujo de trabajo (resumen)
-- Una rama por persona: `feature/<nombre>`. Cada quien solo modifica sus propios archivos.
+- Todos trabajan en la rama compartida del equipo: `team-LKJA`. Cada quien solo modifica sus propios archivos.
 - Commits pequenos y frecuentes: `tipo(rf-xx): descripcion` (ej. `feat(rf-01): LoginPage con Page Factory`).
-- Integracion a `main` por Pull Request revisado por otro integrante.
+- Antes de empezar y antes de cada push: `git pull --rebase origin team-LKJA`. No usar `git push --force`.
 - Detalle completo en `docs/guia-equipo/Guia_y_Distribucion_de_Tareas.docx`.
 
 > Nota: al agregar el proyecto base (`Proyecto_Base_S7.zip`: pom.xml y clases base), respetar los paquetes `base`, `pages` y `tests`; si el proyecto base usa otra ruta, mover estas carpetas a esa ruta.
