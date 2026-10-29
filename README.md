@@ -10,17 +10,18 @@ Java 17, Maven, JUnit 5, Selenium 4 y un navegador compatible (ver pom.xml del p
 
 ## Como ejecutar
 ```
+cd Proyecto01
 mvn test
 ```
-El reporte queda en `target/surefire-reports`. Una copia de la ejecucion completa se guarda en `docs/evidencia/`.
+El reporte queda en `Proyecto01/target/surefire-reports`. Una copia de la ejecucion completa se guarda en `docs/evidencia/`.
 
 ## Organizacion del repositorio
 | Carpeta | Contenido |
 |---|---|
 | `casos-de-prueba/` | Excel maestro con los casos (`Casos_de_Prueba_S7.xlsx`) y archivos de trabajo por persona (`por-persona/`) |
-| `src/test/java/base/` | Clases base del proyecto (driver, configuracion) |
-| `src/test/java/pages/` | Clases de pagina con Page Factory (sin aserciones ni datos fijos) |
-| `src/test/java/tests/` | Pruebas JUnit 5 con el patron POM (con aserciones, sin localizadores) |
+| `Proyecto01/src/test/java/base/` | Clases base del proyecto (driver, configuracion) |
+| `Proyecto01/src/test/java/pages/` | Clases de pagina con Page Factory (sin aserciones ni datos fijos) |
+| `Proyecto01/src/test/java/tests/` | Pruebas JUnit 5 con el patron POM (con aserciones, sin localizadores) |
 | `docs/enunciado/` | Enunciado original |
 | `docs/guia-equipo/` | Guia de trabajo y distribucion de tareas |
 | `docs/hallazgos/` | Hallazgos por integrante |
@@ -41,4 +42,4 @@ El reporte queda en `target/surefire-reports`. Una copia de la ejecucion complet
 - Antes de empezar y antes de cada push: `git pull --rebase origin team-LKJA`. No usar `git push --force`.
 - Detalle completo en `docs/guia-equipo/Guia_y_Distribucion_de_Tareas.docx`.
 
-> Nota: al agregar el proyecto base (`Proyecto_Base_S7.zip`: pom.xml y clases base), respetar los paquetes `base`, `pages` y `tests`; si el proyecto base usa otra ruta, mover estas carpetas a esa ruta.
+> Nota: no hay proyecto base del docente; el proyecto Maven del equipo esta en `Proyecto01/` (Java 17, Selenium 4, JUnit 5).
