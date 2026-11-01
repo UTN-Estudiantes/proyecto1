@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
@@ -49,6 +50,18 @@ public class PaginaBusqueda {
         botonBuscar.click();
         espera.until(d -> !d.getCurrentUrl().equals(urlAnterior));
         return this;
+    }
+
+    public PaginaProducto abrirProducto(String nombre) {
+        for (WebElement enlace : nombresProductos) {
+            if (enlace.getText().trim().equalsIgnoreCase(nombre)) {
+                String destino = enlace.getAttribute("href");
+                enlace.click();
+                espera.until(ExpectedConditions.urlToBe(destino));
+                return new PaginaProducto(driver);
+            }
+        }
+        throw new IllegalArgumentException("No existe el producto en los resultados: " + nombre);
     }
 
     public List<String> obtenerNombresDeProductos() {

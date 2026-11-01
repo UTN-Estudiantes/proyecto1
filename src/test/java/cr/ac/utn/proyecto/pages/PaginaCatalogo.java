@@ -79,6 +79,9 @@ public class PaginaCatalogo {
     @FindBy(id = "bar-notification")
     private WebElement notificacion;
 
+    @FindBy(css = "#topcartlink a.ico-cart")
+    private WebElement enlaceCarrito;
+
     public PaginaCatalogo(WebDriver driver) {
         this.driver = driver;
         this.espera = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -158,6 +161,24 @@ public class PaginaCatalogo {
 
     public String obtenerIndicadorCarrito() {
         return indicadorCarrito.getText().trim();
+    }
+
+    public PaginaProducto abrirProducto(String nombre) {
+        for (WebElement enlace : nombresProductos) {
+            if (enlace.getText().trim().equalsIgnoreCase(nombre)) {
+                String destino = enlace.getAttribute("href");
+                enlace.click();
+                espera.until(ExpectedConditions.urlToBe(destino));
+                return new PaginaProducto(driver);
+            }
+        }
+        throw new IllegalArgumentException("No existe el producto en el listado: " + nombre);
+    }
+
+    public PaginaCarrito irAlCarrito() {
+        enlaceCarrito.click();
+        espera.until(ExpectedConditions.urlContains("/cart"));
+        return new PaginaCarrito(driver);
     }
 
     private PaginaCatalogo cambiarOpcion(WebElement lista, String textoVisible) {

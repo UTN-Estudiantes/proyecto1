@@ -45,6 +45,9 @@ public class PaginaInicio {
     @FindBy(css = "div.footer a[href='/search']")
     private WebElement enlaceBusquedaAvanzada;
 
+    @FindBy(css = "#topcartlink a.ico-cart")
+    private WebElement enlaceCarrito;
+
     public PaginaInicio(WebDriver driver) {
         this.driver = driver;
         this.espera = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -74,6 +77,12 @@ public class PaginaInicio {
         botonBuscar.click();
         espera.until(ExpectedConditions.urlContains("/search"));
         return new PaginaBusqueda(driver);
+    }
+
+    public PaginaCarrito irAlCarrito() {
+        enlaceCarrito.click();
+        espera.until(ExpectedConditions.urlContains("/cart"));
+        return new PaginaCarrito(driver);
     }
 
     public PaginaBusquedaAvanzada irABusquedaAvanzada() {
