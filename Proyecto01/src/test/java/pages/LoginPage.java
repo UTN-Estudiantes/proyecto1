@@ -87,4 +87,17 @@ public class LoginPage {
         wait.until(ExpectedConditions.visibilityOf(detalleError));
         return detalleError.getText();
     }
+    
+    public LoginPage abrirPagina(String url) {
+        driver.get(url);
+        return this;
+    }
+
+    public boolean estaEnPantallaDeLogin() {
+        try {
+            return campoCorreo.isDisplayed() && botonLogin.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
 }

@@ -1,3 +1,4 @@
+
 package tests;
 
 import base.BaseTest;
@@ -6,6 +7,7 @@ import pages.RegistroPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class RegistroTest extends BaseTest {
 
@@ -46,5 +48,17 @@ public class RegistroTest extends BaseTest {
                 .registrar("Female", "Ana", "Prueba", correo, CLAVE, CLAVE);
 
         assertEquals("The specified email already exists", registro.obtenerErrorResumen());
+    }
+
+    @Test
+    @DisplayName("CP-004 Registro con correo de formato invalido")
+    public void registroConCorreoInvalido() {
+        RegistroPage registro = new RegistroPage(driver);
+
+        registro.abrir()
+                .registrar("Female", "Ana", "Prueba", "usuarioprueba.com", CLAVE, CLAVE);
+
+        assertEquals("Wrong email", registro.obtenerErrorDeCampo("Email"));
+        assertFalse(new LoginPage(driver).haySesionIniciada());
     }
 }

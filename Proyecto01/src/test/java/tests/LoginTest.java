@@ -60,4 +60,23 @@ public class LoginTest extends BaseTest {
         assertEquals("No customer account found", login.obtenerDetalleError());
         assertFalse(login.haySesionIniciada());
     }
+    
+    @Test
+    @DisplayName("CP-010 Cierre de sesion: vuelve a ser visitante y Mi cuenta deja de ser accesible")
+    public void cierreDeSesion() {
+        String correo = correoUnico();
+        RegistroPage registro = new RegistroPage(driver);
+        LoginPage login = new LoginPage(driver);
+
+        // Preparacion propia del caso: registrar un usuario (queda con sesion iniciada)
+        registro.abrir()
+                .registrar("Female", "Ana", "Prueba", correo, CLAVE, CLAVE);
+        registro.obtenerMensajeResultado();
+
+        login.cerrarSesion();
+        assertFalse(login.haySesionIniciada());
+
+        login.abrirPagina(URL_SITIO + "/customer/info");
+        assertTrue(login.estaEnPantallaDeLogin());
+    }
 }
