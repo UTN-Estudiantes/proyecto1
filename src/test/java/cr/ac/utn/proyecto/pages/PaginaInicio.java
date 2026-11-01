@@ -30,9 +30,20 @@ public class PaginaInicio {
     @FindBy(css = "div.header-links a.account")
     private WebElement enlaceCuenta;
 
-    // Lista para consultar la ausencia del enlace sin que falle la búsqueda cuando no existe.
     @FindBy(css = "div.header-links a.ico-logout")
     private List<WebElement> opcionesCerrarSesion;
+
+    @FindBy(id = "small-searchterms")
+    private WebElement campoBusqueda;
+
+    @FindBy(css = "div.search-box input.search-box-button")
+    private WebElement botonBuscar;
+
+    @FindBy(css = "ul.top-menu > li > a")
+    private List<WebElement> enlacesCategorias;
+
+    @FindBy(css = "div.footer a[href='/search']")
+    private WebElement enlaceBusquedaAvanzada;
 
     public PaginaInicio(WebDriver driver) {
         this.driver = driver;
@@ -55,6 +66,32 @@ public class PaginaInicio {
         enlaceInicioSesion.click();
         espera.until(ExpectedConditions.urlContains("/login"));
         return new PaginaInicioSesion(driver);
+    }
+
+    public PaginaBusqueda buscar(String texto) {
+        campoBusqueda.clear();
+        campoBusqueda.sendKeys(texto);
+        botonBuscar.click();
+        espera.until(ExpectedConditions.urlContains("/search"));
+        return new PaginaBusqueda(driver);
+    }
+
+    public PaginaBusquedaAvanzada irABusquedaAvanzada() {
+        enlaceBusquedaAvanzada.click();
+        espera.until(ExpectedConditions.urlContains("/search"));
+        return new PaginaBusquedaAvanzada(driver);
+    }
+
+    public PaginaCatalogo irACategoria(String nombre) {
+        String urlAnterior = driver.getCurrentUrl();
+        for (WebElement enlace : enlacesCategorias) {
+            if (enlace.getText().trim().equalsIgnoreCase(nombre)) {
+                enlace.click();
+                espera.until(d -> !d.getCurrentUrl().equals(urlAnterior));
+                return new PaginaCatalogo(driver);
+            }
+        }
+        throw new IllegalArgumentException("No existe la categoría en el menú: " + nombre);
     }
 
     public PaginaInicio cerrarSesion() {
