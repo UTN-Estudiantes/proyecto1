@@ -13,7 +13,7 @@ public class RegistroPage {
 
     private final WebDriver driver;
 
-    //Elementos básicos
+    // Elementos básicos
     @FindBy(id = "gender-male")
     private WebElement generoMasculino;
 
@@ -44,7 +44,7 @@ public class RegistroPage {
     @FindBy(css = "input.register-continue-button")
     private WebElement botonContinuar;
 
-    //Errores
+    // Errores
     @FindBy(css = "span[data-valmsg-for='FirstName']")
     private WebElement errorNombre;
 
@@ -72,5 +72,69 @@ public class RegistroPage {
         driver.get(BaseTest.URL_BASE + "register");
         Visual.pausa();
         return this;
+    }
+
+    public RegistroPage elegirGeneroMasculino() {
+        generoMasculino.click();
+        Visual.pausa();
+        return this;
+    }
+
+    public RegistroPage elegirGeneroFemenino() {
+        generoFemenino.click();
+        Visual.pausa();
+        return this;
+    }
+
+    public RegistroPage registrar(String nombre,
+            String apellido,
+            String correo,
+            String clave,
+            String confirmacion) {
+
+        campoNombre.sendKeys(nombre);
+        campoApellido.sendKeys(apellido);
+        campoCorreo.sendKeys(correo);
+        campoClave.sendKeys(clave);
+        campoConfirmacion.sendKeys(confirmacion);
+        
+        Visual.pausa();
+        botonRegistrar.click();
+        Visual.pausa();
+        return this;
+    }
+
+    public String mensajeConfirmacion() {
+        return mensajeConfirmacion.getText();
+    }
+
+    public String errorNombre() {
+        return errorNombre.getText();
+    }
+
+    public String errorApellido() {
+        return errorApellido.getText();
+    }
+
+    public String errorCorreo() {
+        return errorCorreo.getText();
+    }
+
+    public String errorClave() {
+        return errorClave.getText();
+    }
+
+    public String errorConfirmacion() {
+        return errorConfirmacion.getText();
+    }
+
+    public String errorGeneral() {
+        return errorGeneral.getText();
+    }
+
+    public InicioPage continuar() {
+        botonContinuar.click();
+        Visual.pausa();
+        return new InicioPage(driver);
     }
 }
