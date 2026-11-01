@@ -40,14 +40,22 @@ public class RegistroTest extends BaseTest {
     }
 
     @Test
-    @Disabled("Pendiente de implementar")
     @DisplayName("CP-002 Registro con campos obligatorios vacíos")
     void registroConCamposObligatoriosVacios() {
-        // Arrange (Preparación)
 
         // Act (Acción)
 
+        //Se abre la página de registro y se agregan datos vacíos en cada campo
+        RegistroPage registro = new RegistroPage(driver).abrir().registrar("", "", "", "", "");
+
         // Assert (Comprobación)
+
+        //Se verifican los mensajes de error para cada campo obligatorio
+        assertEquals("First name is required.", registro.errorNombre(), "El mensaje de error para el nombre no coincide");
+        assertEquals("Last name is required.", registro.errorApellido(), "El mensaje de error para el apellido no coincide");
+        assertEquals("Email is required.", registro.errorCorreo(), "El mensaje de error para el correo no coincide");
+        assertEquals("Password is required.", registro.errorClave(), "El mensaje de error para la contraseña no coincide");
+        assertEquals("Password is required.", registro.errorConfirmacion(), "El mensaje de error para la confirmación de contraseña no coincide");
     }
 
     @Test
