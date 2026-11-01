@@ -91,6 +91,11 @@ public class CheckoutPage {
         return this;
     }
     
+    public CheckoutPage irAlCheckoutSinAceptarTerminos(){
+        this.botonCheckout.click();
+        return this;
+    }
+    
     public CheckoutPage continuarComoInvitado(){
         wait.until(ExpectedConditions.elementToBeClickable(botonInvitado));
         this.botonInvitado.click();
@@ -162,4 +167,6 @@ public class CheckoutPage {
         enlaceCarrito.click();
         return this;
     }
+    
+   
 }
