@@ -8,7 +8,6 @@ import cr.ac.utn.proyecto.pages.InicioPage;
 import cr.ac.utn.proyecto.pages.RegistroPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Disabled;
 
 public class RegistroTest extends BaseTest {
 
