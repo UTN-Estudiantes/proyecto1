@@ -2,6 +2,7 @@ package cr.ac.utn.proyecto.pages;
 
 import cr.ac.utn.proyecto.base.BaseTest;
 import cr.ac.utn.proyecto.base.Visual;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,6 +24,12 @@ public class HomePage {
 
     @FindBy(css = "div.header-links a.account")
     private WebElement enlaceCuentaUsuario;
+
+    @FindBy(id = "small-searchterms")
+    private WebElement campoBusqueda;
+
+    @FindBy(css = "input.search-box-button")
+    private WebElement botonBuscar;
 
     @FindBy(css = "#topcartlink a.ico-cart")
     private WebElement enlaceCarrito;
@@ -57,6 +64,24 @@ public class HomePage {
         enlaceLogout.click();
         Visual.pausa();
         return new HomePage(driver);
+    }
+
+    public SearchPage buscarProducto(String termino) {
+        campoBusqueda.clear();
+        campoBusqueda.sendKeys(termino);
+        Visual.pausa();
+        botonBuscar.click();
+        Visual.pausa();
+        return new SearchPage(driver);
+    }
+
+    public CategoryPage irACategoria(String nombreCategoria) {
+        // Se usa driver.findElement con By.linkText porque el nombre de la categoria
+        // llega por parametro y @FindBy no acepta variables.
+        WebElement categoria = driver.findElement(By.linkText(nombreCategoria));
+        categoria.click();
+        Visual.pausa();
+        return new CategoryPage(driver);
     }
 
     public CartPage irAlCarrito() {
