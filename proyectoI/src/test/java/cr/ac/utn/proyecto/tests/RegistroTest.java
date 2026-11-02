@@ -46,17 +46,21 @@ public class RegistroTest extends BaseTest {
 
         // Act (Acción)
 
-        //Se abre la página de registro y se agregan datos vacíos en cada campo
+        // Se abre la página de registro y se agregan datos vacíos en cada campo
         RegistroPage registro = new RegistroPage(driver).abrir().registrar("", "", "", "", "");
 
         // Assert (Comprobación)
 
-        //Se verifican los mensajes de error para cada campo obligatorio
-        assertEquals("First name is required.", registro.errorNombre(), "El mensaje de error para el nombre no coincide");
-        assertEquals("Last name is required.", registro.errorApellido(), "El mensaje de error para el apellido no coincide");
+        // Se verifican los mensajes de error para cada campo obligatorio
+        assertEquals("First name is required.", registro.errorNombre(),
+                "El mensaje de error para el nombre no coincide");
+        assertEquals("Last name is required.", registro.errorApellido(),
+                "El mensaje de error para el apellido no coincide");
         assertEquals("Email is required.", registro.errorCorreo(), "El mensaje de error para el correo no coincide");
-        assertEquals("Password is required.", registro.errorClave(), "El mensaje de error para la contraseña no coincide");
-        assertEquals("Password is required.", registro.errorConfirmacion(), "El mensaje de error para la confirmación de contraseña no coincide");
+        assertEquals("Password is required.", registro.errorClave(),
+                "El mensaje de error para la contraseña no coincide");
+        assertEquals("Password is required.", registro.errorConfirmacion(),
+                "El mensaje de error para la confirmación de contraseña no coincide");
     }
 
     @Test
@@ -65,8 +69,9 @@ public class RegistroTest extends BaseTest {
 
         // Act (Acción)
 
-        //Se abre la página de registro y se agrega un correo sin formato válido
-        RegistroPage registro = new RegistroPage(driver).abrir().registrar("Nombre", "Apellido", "cuentaejemplo.com", CLAVE, CLAVE);
+        // Se abre la página de registro y se agrega un correo sin formato válido
+        RegistroPage registro = new RegistroPage(driver).abrir().registrar("Nombre", "Apellido", "cuentaejemplo.com",
+                CLAVE, CLAVE);
 
         // Assert (Comprobación)
         assertEquals("Wrong email", registro.errorCorreo(), "El mensaje de error para el correo no coincide");
@@ -85,7 +90,7 @@ public class RegistroTest extends BaseTest {
 
         // Se abre la página de registro y se registra una cuenta con el correo generado
         RegistroPage registro = new RegistroPage(driver).abrir().registrar("Nombre", "Apellido", correo, CLAVE, CLAVE);
-        
+
         InicioPage inicio = registro.continuar();
 
         // Luego del registro, se cierra la sesión
@@ -97,7 +102,8 @@ public class RegistroTest extends BaseTest {
         // Assert (Comprobación)
 
         // Se verifica el mensaje de error general
-        assertEquals("The specified email already exists", registro.errorGeneral(), "El mensaje de error para el correo ya registrado no coincide");
+        assertEquals("The specified email already exists", registro.errorGeneral(),
+                "El mensaje de error para el correo ya registrado no coincide");
     }
 
     @Test
@@ -112,23 +118,36 @@ public class RegistroTest extends BaseTest {
         // Act (Acción)
 
         // Se abre la página de registro y se trata de registrar con clave corta
-        // Se usa "12345" porque contiene exactamente 5 caracteres; uno menos que el mínimo de 6.
-        RegistroPage registro = new RegistroPage(driver).abrir().registrar("Nombre", "Apellido", correo, "12345", "12345");
+        // Se usa "12345" porque contiene exactamente 5 caracteres; uno menos que el
+        // mínimo de 6.
+        RegistroPage registro = new RegistroPage(driver).abrir().registrar("Nombre", "Apellido", correo, "12345",
+                "12345");
 
         // Assert (Comprobación)
 
         // Se verifica el mensaje de error debajo del campo de contraseña
-        assertEquals("The password should have at least 6 characters.", registro.errorClave(), "El mensaje de error para la contraseña corta no coincide");
+        assertEquals("The password should have at least 6 characters.", registro.errorClave(),
+                "El mensaje de error para la contraseña corta no coincide");
     }
 
     @Test
-    @Disabled("Pendiente de implementar")
     @DisplayName("CP-006 Registro con confirmación distinta")
     void registroConConfirmacionDistinta() {
+
         // Arrange (Preparación)
 
+        // Se genera un correo único para la prueba
+        String correo = GeneradorDatos.correoUnico();
+
         // Act (Acción)
+        // Se abre la página de registro y se trata de registrar con clave de confirmación distinta
+        RegistroPage registro = new RegistroPage(driver).abrir().registrar("Nombre", "Apellido", correo, "123456",
+                "1234567");
 
         // Assert (Comprobación)
+
+        // Se verifica el mensaje de error debajo del campo de confirmar contraseña
+        assertEquals("The password and confirmation password do not match.", registro.errorConfirmacion(),
+                "El mensaje de error para la contraseña de confirmación no coincide");
     }
 }
