@@ -32,6 +32,15 @@ public class CartPage {
     @FindBy(css = "div.order-summary-content")
     private WebElement contenidoResumenCarrito;
 
+    @FindBy(id = "termsofservice")
+    private WebElement casillaTerminosServicio;
+
+    @FindBy(id = "checkout")
+    private WebElement botonCheckout;
+
+    @FindBy(id = "terms-of-service-warning-box")
+    private WebElement cuadroAdvertenciaTerminos;
+
     public CartPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -68,5 +77,29 @@ public class CartPage {
 
     public String mensajeCarritoVacio() {
         return contenidoResumenCarrito.getText().trim();
+    }
+
+    public CartPage aceptarTerminos() {
+        if (!casillaTerminosServicio.isSelected()) {
+            casillaTerminosServicio.click();
+            Visual.pausa();
+        }
+        return this;
+    }
+
+    public CheckoutPage irACheckout() {
+        botonCheckout.click();
+        Visual.pausa();
+        return new CheckoutPage(driver);
+    }
+
+    public CartPage intentarCheckoutSinTerminos() {
+        botonCheckout.click();
+        Visual.pausa();
+        return this;
+    }
+
+    public String textoAdvertenciaTerminos() {
+        return cuadroAdvertenciaTerminos.getText().trim();
     }
 }
