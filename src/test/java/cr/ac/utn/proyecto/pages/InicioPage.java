@@ -30,6 +30,12 @@ public class InicioPage {
     @FindBy(css = "div.header-links a.account")
     private List<WebElement> enlaceCuenta;
 
+    @FindBy(id = "small-searchterms")
+    private WebElement campoBusqueda;
+ 
+    @FindBy(css = "input.search-box-button")
+    private WebElement botonBuscar;
+    
     public InicioPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -59,6 +65,14 @@ public class InicioPage {
         return this;
     }
 
+    public ResultadosBusquedaPage buscar(String texto) {
+      campoBusqueda.sendKeys(texto);
+      Visual.pausa();
+      botonBuscar.click();
+      Visual.pausa();
+      return new ResultadosBusquedaPage(driver);
+    }
+    
     /** Correo que sale arriba; vacio si no hay sesion. */
     public String correoEnEncabezado() {
         return enlaceCuenta.isEmpty() ? "" : enlaceCuenta.get(0).getText().trim();
