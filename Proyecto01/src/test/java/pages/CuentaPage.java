@@ -88,23 +88,45 @@ public class CuentaPage {
         wait.until(ExpectedConditions.visibilityOf(mensajeResultado));
         return this;
     }
-    
-    public CuentaPage irAInformacionCuenta(){
-        wait.ignoring(StaleElementReferenceException.class).until(d -> { enlaceCuenta.click(); return true; });
+
+    public CuentaPage irAInformacionCuenta() {
+        wait.ignoring(StaleElementReferenceException.class).until(d -> {
+            enlaceCuenta.click();
+            return true;
+        });
         wait.until(ExpectedConditions.visibilityOf(botonGuardarInfo));
         return this;
     }
-    
-    public CuentaPage editarApellido(String nuevoApellido){
+
+    public CuentaPage editarApellido(String nuevoApellido) {
         this.campoApellido.clear();
         this.campoApellido.sendKeys(nuevoApellido);
         this.botonGuardarInfo.click();
         return this;
     }
-    
-    public String obtenerApellido(){
+
+    public String obtenerApellido() {
         wait.until(ExpectedConditions.visibilityOf(campoApellido));
         return this.campoApellido.getDomProperty("value");
+    }
+
+    public CuentaPage irACambiarClave() {
+        this.enlaceCambiarClave.click();
+        wait.until(ExpectedConditions.visibilityOf(campoClaveActual));
+        return this;
+    }
+
+    public CuentaPage cambiarClave(String claveActual, String claveNueva, String confirmacion) {
+        this.campoClaveActual.sendKeys(claveActual);
+        this.campoClaveNueva.sendKeys(claveNueva);
+        this.campoConfirmarClaveNueva.sendKeys(confirmacion);
+        this.botonCambiarClave.click();
+        return this;
+    }
+    
+    public String obtenerError() {
+        wait.until(ExpectedConditions.visibilityOf(errorResumen));
+        return this.errorResumen.getText();
     }
 
 }

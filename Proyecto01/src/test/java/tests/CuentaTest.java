@@ -16,14 +16,33 @@ public class CuentaTest extends BaseTest {
     @DisplayName("CP-050 Ver y editar la informacion de la cuenta")
     public void editarInformacionCuenta() {
         CuentaPage cuenta = new CuentaPage(driver);
+
+        String correo = "qa" + System.currentTimeMillis() + "@mail.com";
+
+        cuenta.registrarUsuario("Ana", "Prueba", correo, "Prueba123")
+                .irAInformacionCuenta()
+                .editarApellido("Modificado")
+                .irAInformacionCuenta();
+
+        assertEquals("Modificado", cuenta.obtenerApellido());
+    }
+
+    @Test
+    @DisplayName("CP-052 Cambiar contrasena con clave actual incorrecta")
+    public void cambiarClaveConClaveActualIncorrecta() {
+        
+        CuentaPage cuenta = new CuentaPage(driver);
         
         String correo = "qa" + System.currentTimeMillis() + "@mail.com";
         
         cuenta.registrarUsuario("Ana", "Prueba", correo, "Prueba123")
                 .irAInformacionCuenta()
-                .editarApellido("Modificado")
-                .irAInformacionCuenta();
-        
-        assertEquals("Modificado", cuenta.obtenerApellido());
+                .irACambiarClave()
+                .cambiarClave("Incorrecta1", "Nueva1234", "Nueva1234");
+
+        assertEquals("Old password doesn't match", cuenta.obtenerError());
     }
+    
+    
+
 }
