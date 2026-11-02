@@ -101,14 +101,24 @@ public class RegistroTest extends BaseTest {
     }
 
     @Test
-    @Disabled("Pendiente de implementar")
     @DisplayName("CP-005 Registro con contraseña demasiado corta")
     void registroConContrasenaDemasiadoCorta() {
+
         // Arrange (Preparación)
+
+        // Se genera un correo único para la prueba
+        String correo = GeneradorDatos.correoUnico();
 
         // Act (Acción)
 
+        // Se abre la página de registro y se trata de registrar con clave corta
+        // Se usa "12345" porque contiene exactamente 5 caracteres; uno menos que el mínimo de 6.
+        RegistroPage registro = new RegistroPage(driver).abrir().registrar("Nombre", "Apellido", correo, "12345", "12345");
+
         // Assert (Comprobación)
+
+        // Se verifica el mensaje de error debajo del campo de contraseña
+        assertEquals("The password should have at least 6 characters.", registro.errorClave(), "El mensaje de error para la contraseña corta no coincide");
     }
 
     @Test
