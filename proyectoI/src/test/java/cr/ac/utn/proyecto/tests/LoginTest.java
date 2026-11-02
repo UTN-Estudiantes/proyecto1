@@ -100,13 +100,29 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
-    @Disabled("Pendiente de implementar")
     @DisplayName("CP-010 Cerrar sesión vuelve a visitante")
     void cerrarSesionVuelveAVisitante() {
+
         // Arrange (Preparación)
+
+        // Se genera un correo único para la prueba
+        String correo = GeneradorDatos.correoUnico();
+
+        // Se registra el correo 
+        RegistroPage registro = new RegistroPage(driver).abrir().registrar("Nombre", "Apellido", correo, CLAVE, CLAVE);
+
+        InicioPage inicio = registro.continuar();
+
 
         // Act (Acción)
 
+        // Se cierra la sesión
+        inicio.cerrarSesion();
+
         // Assert (Comprobación)
+
+        // Se verifica el encabezado
+        assertEquals("Log in", inicio.textoEnlaceLogin(), "El encabezado no muestra el enlace de login");
+        assertEquals("Register", inicio.textoEnlaceRegistro(), "El encabezado no muestra el enlace de registro");
     }
 }
