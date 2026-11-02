@@ -17,6 +17,7 @@ public class RegistroTest extends BaseTest {
     @Test
     @DisplayName("CP-001 Registro con datos validos")
     void registroValido() {
+
         // Arrange (Preparación)
 
         // Se genera un correo único para la prueba
@@ -59,14 +60,16 @@ public class RegistroTest extends BaseTest {
     }
 
     @Test
-    @Disabled("Pendiente de implementar")
     @DisplayName("CP-003 Registro con correo sin formato válido")
     void registroConCorreoInvalido() {
-        // Arrange (Preparación)
 
         // Act (Acción)
 
+        //Se abre la página de registro y se agrega un correo sin formato válido
+        RegistroPage registro = new RegistroPage(driver).abrir().registrar("Nombre", "Apellido", "cuentaejemplo.com", CLAVE, CLAVE);
+
         // Assert (Comprobación)
+        assertEquals("Wrong email", registro.errorCorreo(), "El mensaje de error para el correo no coincide");
     }
 
     @Test
