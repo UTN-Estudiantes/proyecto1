@@ -80,14 +80,23 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
-    @Disabled("Pendiente de implementar")
     @DisplayName("CP-009 Login con credenciales vacías")
     void loginConCredencialesVacias() {
+
         // Arrange (Preparación)
+
+        // Se guarda la variable con el mensaje de error
+        String mensajeEsperado = "No customer account found";
 
         // Act (Acción)
 
+        // Iniciar sesión sin ingresar correo ni clave
+        LoginPage login = new LoginPage(driver).abrir().iniciarSesionFallido("", "");
+
         // Assert (Comprobación)
+
+        // Se verifica que el mensaje de error sea el esperado
+        assertTrue(login.mensajeError().contains(mensajeEsperado), "El mensaje de error no coincide. Texto real: " + login.mensajeError());
     }
 
     @Test
