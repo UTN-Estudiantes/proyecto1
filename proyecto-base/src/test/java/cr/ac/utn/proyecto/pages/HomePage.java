@@ -24,6 +24,12 @@ public class HomePage {
     @FindBy(css = "div.header-links a.account")
     private WebElement enlaceCuentaUsuario;
 
+    @FindBy(css = "#topcartlink a.ico-cart")
+    private WebElement enlaceCarrito;
+
+    @FindBy(css = "span.cart-qty")
+    private WebElement cantidadCarrito;
+
     public HomePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -53,6 +59,12 @@ public class HomePage {
         return new HomePage(driver);
     }
 
+    public CartPage irAlCarrito() {
+        enlaceCarrito.click();
+        Visual.pausa();
+        return new CartPage(driver);
+    }
+
     public String cuentaLogueada() {
         return enlaceCuentaUsuario.getText().trim();
     }
@@ -63,5 +75,9 @@ public class HomePage {
 
     public boolean estaVisibleLogin() {
         return enlaceLogin.isDisplayed();
+    }
+
+    public String cantidadEnInsignia() {
+        return cantidadCarrito.getText().trim();
     }
 }
