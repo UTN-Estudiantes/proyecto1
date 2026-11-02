@@ -3,8 +3,6 @@ package cr.ac.utn.proyecto.tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Disabled;
-
 import cr.ac.utn.proyecto.base.BaseTest;
 import cr.ac.utn.proyecto.base.GeneradorDatos;
 import cr.ac.utn.proyecto.pages.InicioPage;
@@ -12,7 +10,6 @@ import cr.ac.utn.proyecto.pages.LoginPage;
 import cr.ac.utn.proyecto.pages.RegistroPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginTest extends BaseTest {
 
