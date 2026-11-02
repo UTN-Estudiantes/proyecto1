@@ -24,6 +24,12 @@ public class InicioPage {
     @FindBy(css = "a.ico-logout")
     private WebElement enlaceCerrarSesion;
 
+    @FindBy(id = "small-searchterms")
+    private WebElement campoBusqueda;
+
+    @FindBy(css = "input.search-box-button")
+    private WebElement botonBusqueda;
+
     public InicioPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this); 
@@ -45,6 +51,13 @@ public class InicioPage {
         enlaceLogin.click();
         Visual.pausa();
         return new LoginPage(driver);
+    }
+
+    public ResultadosBusquedaPage buscar(String texto) {
+        campoBusqueda.sendKeys(texto);
+        botonBusqueda.click();
+        Visual.pausa();
+        return new ResultadosBusquedaPage(driver);
     }
 
     public InicioPage cerrarSesion() {
