@@ -73,14 +73,31 @@ public class RegistroTest extends BaseTest {
     }
 
     @Test
-    @Disabled("Pendiente de implementar")
     @DisplayName("CP-004 Registro con correo ya registrado")
     void registroConCorreoYaRegistrado() {
+
         // Arrange (Preparación)
+
+        // Se genera un correo único para la prueba
+        String correo = GeneradorDatos.correoUnico();
 
         // Act (Acción)
 
+        // Se abre la página de registro y se registra una cuenta con el correo generado
+        RegistroPage registro = new RegistroPage(driver).abrir().registrar("Nombre", "Apellido", correo, CLAVE, CLAVE);
+        
+        InicioPage inicio = registro.continuar();
+
+        // Luego del registro, se cierra la sesión
+        inicio.cerrarSesion();
+
+        // Vuelve a abrirse registro y se repite el proceso
+        registro = new RegistroPage(driver).abrir().registrar("Nombre", "Apellido", correo, CLAVE, CLAVE);
+
         // Assert (Comprobación)
+
+        // Se verifica el mensaje de error general
+        assertEquals("The specified email already exists", registro.errorGeneral(), "El mensaje de error para el correo ya registrado no coincide");
     }
 
     @Test
