@@ -107,8 +107,11 @@ public class CheckoutPage {
         
         wait.until(ExpectedConditions.visibilityOf(campoNombre));
         Select selectorPais = new Select(listaPais);
+        this.campoNombre.clear();
         this.campoNombre.sendKeys(nombre);
+        this.campoApellido.clear();
         this.campoApellido.sendKeys(apellido);
+        this.campoCorreo.clear();
         this.campoCorreo.sendKeys(correo);
         selectorPais.selectByVisibleText(pais);
         this.campoCiudad.sendKeys(ciudad);

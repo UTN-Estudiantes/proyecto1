@@ -5,6 +5,7 @@ import pages.CuentaPage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import pages.CheckoutPage;
 
 /**
  *
@@ -43,6 +44,27 @@ public class CuentaTest extends BaseTest {
         assertEquals("Old password doesn't match", cuenta.obtenerError());
     }
     
-    
+    @Test
+    @DisplayName("CP-043 Compra completa como usuario registrado")
+    public void compraComoUsuarioRegistrado(){
+        CuentaPage cuenta = new CuentaPage(driver);
+        CheckoutPage checkout = new CheckoutPage(driver);
+        
+        String correo = "qa" + System.currentTimeMillis() + "@mail.com";
+        
+        cuenta.registrarUsuario("Ana", "Prueba", correo, "Prueba123");
+        
+        checkout.agregarProductoAlCarrito(URL_SITIO + "/141-inch-laptop", 31)
+                .aceptarTerminosYContinuar()
+                .completarFacturacion("Ana", "Prueba", "qa"
+                        + System.currentTimeMillis() + "@mail.com", "Costa Rica", "San Jose", "Calle 1", "10101", "88888888")
+                .continuarDireccionEnvio()
+                .continuarMetodoEnvio()
+                .continuarMetodoPago()
+                .continuarInfoPago()
+                .confirmarOrden();
+        
+        assertEquals("Your order has been successfully processed!", checkout.obtenerMensajeExito());
+    }
 
 }
