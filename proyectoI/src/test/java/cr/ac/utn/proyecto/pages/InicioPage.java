@@ -56,4 +56,12 @@ public class InicioPage {
     public String textoCuenta() {
         return enlaceCuenta.getText();
     }
+
+    public String textoEnlaceRegistro() {
+        return enlaceRegistro.getText();
+    }
+
+    public String textoEnlaceLogin() {
+        return enlaceLogin.getText();
+    }
 }
