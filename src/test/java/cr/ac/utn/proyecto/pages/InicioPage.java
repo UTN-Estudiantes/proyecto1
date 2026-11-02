@@ -86,4 +86,21 @@ public class InicioPage {
     public boolean haySesionIniciada() {
         return !enlaceSalir.isEmpty();
     }
+    
+    /*
+     * @FindBy no acepta parametros: el enlace depende de la categoria, por eso se usa driver.findElement + 
+
+     * Las subcategorias (por ejemplo notebooks) estan ocultas hasta pasar el mouse por su categoria.
+    */
+    public CategoriaPage irACategoria(String slug) {
+        WebElement itemMenu = driver.findElement(By.cssSelector("ul.top-menu > li:has(a[href='/" + slug + "'])"));
+        new Actions(driver).moveToElement(itemMenu).perform();
+        WebElement enlace = itemMenu.findElement(By.cssSelector("a[href='/" + slug + "']"));
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(enlace));
+        Visual.pausa();
+        enlace.click();
+        Visual.pausa();
+    return new CategoriaPage(driver);  
+    }
+    
 }
