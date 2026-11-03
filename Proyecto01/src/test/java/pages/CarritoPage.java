@@ -49,6 +49,13 @@ public class CarritoPage {
         campoCantidad.sendKeys(nuevaCantidad);
         return this;
     }
+    
+    public CarritoPage cambiarCantidadProducto(int posicion, String nuevaCantidad) {
+        WebElement campoCantidad = driver.findElements(By.cssSelector(".qty-input")).get(posicion);
+        campoCantidad.clear();
+        campoCantidad.sendKeys(nuevaCantidad);
+        return this;
+    }
 
     public CarritoPage actualizarCarrito() {
         botonActualizar.click();
@@ -79,9 +86,19 @@ public class CarritoPage {
         return precioUnitario.getText();
     }
 
+    public String obtenerPrecioUnitario(int posicion) {
+        WebElement precio = driver.findElements(By.cssSelector(".unit-price .product-unit-price")).get(posicion);
+        return precio.getText();
+    }
+
     public String obtenerSubtotalProducto() {
         wait.until(ExpectedConditions.visibilityOf(subtotalProducto));
         return subtotalProducto.getText();
+    }
+    
+    public String obtenerSubtotalProducto(int posicion) {
+        WebElement subtotal = driver.findElements(By.cssSelector(".subtotal .product-subtotal")).get(posicion);
+        return subtotal.getText();
     }
 
     public String obtenerTotalOrden() {

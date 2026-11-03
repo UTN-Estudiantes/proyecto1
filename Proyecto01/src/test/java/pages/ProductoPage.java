@@ -52,9 +52,6 @@ public class ProductoPage {
         WebElement boton = driver.findElement(By.id(idBoton));
         boton.click();
         wait.until(ExpectedConditions.visibilityOf(barraNotificacion));
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ignored) {}
         return this;
     }
 
@@ -62,9 +59,6 @@ public class ProductoPage {
         WebElement boton = driver.findElement(By.id(idBoton));
         boton.click();
         wait.until(ExpectedConditions.visibilityOf(barraNotificacion));
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ignored) {}
         return this;
     }
 

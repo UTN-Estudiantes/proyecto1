@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CarritoTest extends BaseTest {
 
@@ -26,19 +27,29 @@ public class CarritoTest extends BaseTest {
         assertTrue(notificacion.contains(TEXTO_AGREGADO),
                 "Se esperaba el texto de confirmacion pero se obtuvo: " + notificacion);
     }
-
+    
     @Test
-    @DisplayName("CP-030 Contador del carrito en encabezado se incrementa al agregar producto")
-    public void contadorCarritoIncrementa() {
+    @DisplayName("CP-030 Cambiar cantidad y recalcular subtotal con dos productos")
+    public void cambiarCantidadDosProductos() {
         ProductoPage producto = new ProductoPage(driver);
-        String antes = producto.obtenerCantidadCarritoEncabezado();
-
         producto.abrirUrl(URL_LAPTOP);
         producto.agregarAlCarrito(ID_BTN_CARRITO);
+        producto.abrirUrl(URL_SITIO + "/computing-and-internet");
+        producto.agregarAlCarrito("add-to-cart-button-13");
 
-        String despues = producto.obtenerCantidadCarritoEncabezado();
-        assertFalse(antes.equals(despues),
-                "El contador del carrito en el encabezado debe cambiar al agregar un producto");
+        CarritoPage carrito = new CarritoPage(driver);
+        carrito.abrir(URL_SITIO);
+        carrito.cambiarCantidadProducto(0, "2");
+        carrito.cambiarCantidadProducto(1, "3");
+        carrito.actualizarCarrito();
+
+        double precio1 = Double.parseDouble( carrito.obtenerPrecioUnitario(0).replace(",", ""));
+        double precio2 = Double.parseDouble( carrito.obtenerPrecioUnitario(1).replace(",", ""));
+        double subtotal1 = Double.parseDouble(carrito.obtenerSubtotalProducto(0).replace(",", ""));
+        double subtotal2 = Double.parseDouble( carrito.obtenerSubtotalProducto(1).replace(",", ""));
+
+        assertEquals(precio1 * 2, subtotal1, 0.01);
+        assertEquals(precio2 * 3, subtotal2, 0.01);
     }
 
     @Test
