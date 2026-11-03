@@ -21,8 +21,8 @@ public class CatalogoPage {
     @FindBy(css = "a[href='/computers']")
     private WebElement categoriaComputers;
 
-    @FindBy(css = "a[href='/notebooks']")
-    private List<WebElement> subcategoriaNotebooks;
+    @FindBy(css = "a[href='/desktops']")
+    private List<WebElement> subcategoriaDesktops;
 
     @FindBy(css = ".page-title h1")
     private WebElement tituloPagina;
@@ -42,11 +42,11 @@ public class CatalogoPage {
         categoriaComputers.click();
         return this;
     }
-
+    
     public CatalogoPage abrirSubcategoria() {
-        for (WebElement notebook : subcategoriaNotebooks) {
-            if (notebook.isDisplayed()) {
-                notebook.click();
+        for (WebElement desktop : subcategoriaDesktops) {
+            if (desktop.isDisplayed()) {
+                desktop.click();
                 break;
             }
         }

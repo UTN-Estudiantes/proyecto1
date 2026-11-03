@@ -24,7 +24,7 @@ public class CatalogoTest extends BaseTest {
         catalogo.abrirSubcategoria();
 
         String titulo = catalogo.obtenerTitulo();
-        assertEquals("Notebooks", titulo);
+        assertEquals("Desktops", titulo);
     }
     
     @Test
