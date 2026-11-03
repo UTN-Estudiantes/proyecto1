@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: cr.ac.utn.proyecto.tests.BusquedaTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 31.90 s -- in cr.ac.utn.proyecto.tests.BusquedaTest

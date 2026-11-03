@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: cr.ac.utn.proyecto.tests.CatalogoTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.50 s -- in cr.ac.utn.proyecto.tests.CatalogoTest

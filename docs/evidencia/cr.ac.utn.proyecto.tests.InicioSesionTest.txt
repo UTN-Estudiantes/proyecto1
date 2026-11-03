@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: cr.ac.utn.proyecto.tests.InicioSesionTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 45.35 s -- in cr.ac.utn.proyecto.tests.InicioSesionTest
