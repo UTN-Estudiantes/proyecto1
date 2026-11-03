@@ -74,7 +74,7 @@ src/test/java/cr/ac/utn/proyecto/
 ```
 
 Cada prueba se identifica con su caso escrito mediante `@DisplayName("CP-xxx ...")`.
-Los casos completos y la matriz de trazabilidad están en `docs/Casos_de_Prueba_S7_Rojas_Prado.xlsx`.
+Los casos completos y la matriz de trazabilidad están en `docs/Casos_de_Prueba_S7_DanielaRojas_BrandonPrado.xlsx`.
 
 ## Decisiones de diseño
 
