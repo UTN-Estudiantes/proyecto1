@@ -41,6 +41,8 @@ proyectoI/
                             │   ├── LoginPage.java
                             │   ├── RegistroPage.java
                             │   ├── ResultadosBusquedaPage.java
+                            │   ├── CuentaPage.java
+                            │   ├── CatalogoPage.java
                             │   ├── ListadoProductosPage.java
                             │   ├── ProductoPage.java
                             │   ├── CarritoPage.java
@@ -52,6 +54,9 @@ proyectoI/
                             └── tests/
                                 ├── LoginTest.java
                                 ├── RegistroTest.java
+                                ├── BusquedaTest.java
+                                ├── CatalogoTest.java
+                                ├── CuentaTest.java
                                 ├── CarritoTest.java
                                 ├── ListaDeseosTest.java
                                 ├── CompraTest.java
@@ -72,7 +77,9 @@ proyectoI/
 - `InicioPage.java`: página principal; enlaces de registro, login y cierre de sesión.
 - `LoginPage.java`: formulario de inicio de sesión y su mensaje de error.
 - `RegistroPage.java`: formulario de registro, mensaje de confirmación y errores por campo.
-- `ResultadosBusquedaPage.java`: resultados de búsqueda y enlaces a los productos.
+- `ResultadosBusquedaPage.java`: devuelve los títulos y el aviso de búsqueda.
+- `CuentaPage.java`: información de la cuenta y cambio de contraseña.
+- `CatalogoPage.java`: lista desplegable de productos por página y conteo.
 - `ListadoProductosPage.java`: listado de productos y enlaces a los detalles.
 - `ProductoPage.java`: página de detalle del producto, con opciones de compra y lista de deseos.
 - `CarritoPage.java`: página del carrito de compras, con opciones de actualización y finalización de la compra.
@@ -84,8 +91,11 @@ proyectoI/
 
 - `RegistroTest.java`: CP-001 a CP-006, registro válido y casos de error.
 - `LoginTest.java`: CP-007 a CP-010, inicio de sesión válido, errores y cierre de sesión.
-- `CarritoTest.java`: CP-011 a CP-015, gestión del carrito de compras.
-- `ListaDeseosTest.java`: CP-016 a CP-020, gestión de la lista de deseos.
+- `BusquedaTest.java`: CP-011 y CP-013, búsqueda con resultados y con texto demasiado corto.
+- `CatalogoTest.java`: CP-017, cambio de productos por página.
+- `CuentaTest.java`: CP-018 y CP-019, edición de la información y cambio de contraseña con confirmación distinta.
+- `CarritoTest.java`: CP-021, CP-024, CP-028, gestión del carrito de compras.
+- `ListaDeseosTest.java`: CP-029, gestión de la lista de deseos.
 - `CompraTest.java`: CP-031 a CP-033, automatización del proceso de compra y confirmación de órdenes.
 - `ComparacionTest.java`: CP-036 a CP-038, comparación de dos productos, eliminación de un producto y limpieza de la lista de comparación.
 
@@ -98,6 +108,14 @@ Los comandos deben ejecutarse desde la carpeta que contiene el archivo `pom.xml`
 ```bash
 mvn test -Dtest=RegistroTest
 mvn test -Dtest=LoginTest
+```
+
+### Búsqueda, catálogo y cuenta
+
+```bash
+mvn test -Dtest=BusquedaTest
+mvn test -Dtest=CatalogoTest 
+mvn test -Dtest=CuentaTest
 ```
 
 ### Carrito y lista de deseos
