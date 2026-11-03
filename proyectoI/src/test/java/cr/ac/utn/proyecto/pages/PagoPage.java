@@ -69,6 +69,9 @@ public class PagoPage {
     @FindBy(css = "#shipping-method-buttons-container input.shipping-method-next-step-button")
     private WebElement botonContinuarEnvio;
 
+    @FindBy(css = "#shipping-buttons-container input.new-address-next-step-button")
+    private WebElement botonContinuarDireccionEnvio;
+
     @FindBy(css = "#payment-method-buttons-container input.payment-method-next-step-button")
     private WebElement botonContinuarMetodoPago;
 
@@ -145,8 +148,16 @@ public class PagoPage {
     }
 
     // Método de envío: se deja Ground, que es la opción que el sitio trae marcada
+    public PagoPage continuarDireccionEnvio() {
+        esperar(ExpectedConditions.elementToBeClickable(botonContinuarDireccionEnvio), 30);
+        botonContinuarDireccionEnvio.click();
+        Visual.pausa();
+        return this;
+    }
+
+    // Método de envío: se deja Ground, que es la opción que el sitio trae marcada
     public PagoPage continuarMetodoEnvio() {
-        esperar(ExpectedConditions.elementToBeClickable(botonContinuarEnvio));
+        esperar(ExpectedConditions.elementToBeClickable(botonContinuarEnvio), 30);
         botonContinuarEnvio.click();
         Visual.pausa();
         return this;
@@ -155,21 +166,21 @@ public class PagoPage {
     // Método de pago: se deja Cash On Delivery, que es la opción que el sitio trae
     // marcada
     public PagoPage continuarMetodoPago() {
-        esperar(ExpectedConditions.elementToBeClickable(botonContinuarMetodoPago));
+        esperar(ExpectedConditions.elementToBeClickable(botonContinuarMetodoPago), 30);
         botonContinuarMetodoPago.click();
         Visual.pausa();
         return this;
     }
 
     public PagoPage continuarInformacionPago() {
-        esperar(ExpectedConditions.elementToBeClickable(botonContinuarInfoPago));
+        esperar(ExpectedConditions.elementToBeClickable(botonContinuarInfoPago), 30);
         botonContinuarInfoPago.click();
         Visual.pausa();
         return this;
     }
 
     public PagoPage confirmarOrden() {
-        esperar(ExpectedConditions.elementToBeClickable(botonConfirmar));
+        esperar(ExpectedConditions.elementToBeClickable(botonConfirmar), 30);
         botonConfirmar.click();
         Visual.pausa();
         return this;
@@ -198,6 +209,12 @@ public class PagoPage {
     }
 
     private <T> void esperar(java.util.function.Function<? super WebDriver, T> condicion) {
-        new WebDriverWait(driver, Duration.ofSeconds(10)).until(condicion);
+        esperar(condicion, 10);
+    }
+
+    // Los pasos del checkout se cargan por Ajax y el sitio compartido puede tardar:
+    // para ellos se usa una espera más larga
+    private <T> void esperar(java.util.function.Function<? super WebDriver, T> condicion, int segundos) {
+        new WebDriverWait(driver, Duration.ofSeconds(segundos)).until(condicion);
     }
 }
