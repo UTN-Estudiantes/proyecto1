@@ -51,6 +51,24 @@ public class PaginaInicio {
     @FindBy(css = "div.header-links a.ico-wishlist")
     private WebElement enlaceListaDeseos;
 
+    @FindBy(id = "newsletter-email")
+    private WebElement campoBoletin;
+
+    @FindBy(id = "newsletter-subscribe-button")
+    private WebElement botonSuscribirse;
+
+    @FindBy(id = "newsletter-result-block")
+    private WebElement resultadoDelBoletin;
+
+    @FindBy(css = "div.poll ul.poll-options input[type='radio']")
+    private List<WebElement> opcionesDeLaEncuesta;
+
+    @FindBy(css = "input.vote-poll-button")
+    private WebElement botonVotar;
+
+    @FindBy(css = "div.poll-vote-error")
+    private WebElement errorDeLaEncuesta;
+
     public PaginaInicio(WebDriver driver) {
         this.driver = driver;
         this.espera = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -135,5 +153,29 @@ public class PaginaInicio {
     public String obtenerCuentaMostrada() {
         espera.until(ExpectedConditions.visibilityOf(enlaceCuenta));
         return enlaceCuenta.getText();
+    }
+
+    public PaginaInicio suscribirseAlBoletin(String correo) {
+        campoBoletin.clear();
+        campoBoletin.sendKeys(correo);
+        botonSuscribirse.click();
+        return this;
+    }
+
+    /** El aviso aparece por AJAX y, si es de error, se desvanece a los pocos segundos. */
+    public String obtenerResultadoDelBoletin() {
+        espera.until(d -> !resultadoDelBoletin.getText().trim().isEmpty());
+        return resultadoDelBoletin.getText().trim();
+    }
+
+    public PaginaInicio votarEnLaEncuesta(int posicionDeLaOpcion) {
+        opcionesDeLaEncuesta.get(posicionDeLaOpcion).click();
+        botonVotar.click();
+        return this;
+    }
+
+    public String obtenerErrorDeLaEncuesta() {
+        espera.until(d -> !errorDeLaEncuesta.getText().trim().isEmpty());
+        return errorDeLaEncuesta.getText().trim();
     }
 }
