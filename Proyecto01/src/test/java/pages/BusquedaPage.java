@@ -11,6 +11,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.By;
 
 /**
  *
@@ -39,7 +40,10 @@ public class BusquedaPage {
         campoBusqueda.clear();
         campoBusqueda.sendKeys(texto);
         botonBuscar.click();
-        wait.until(ExpectedConditions.visibilityOf(resultadosBusqueda));
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.cssSelector(".search-results")));
+
         return this;
     }
 

@@ -16,17 +16,20 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
  * @author artav
  */
 public class BusquedaTest extends BaseTest {
+    
     @Test
-    @DisplayName("CP-015 Busqueda con coincidencias")
+    @DisplayName("CP-015 Busqueda por texto con coincidencias")
     public void busquedaConCoincidencias() {
         BusquedaPage busqueda = new BusquedaPage(driver);
         busqueda.buscar("computer");
-
         String resultado = busqueda.obtenerResultados();
-        assertTrue(resultado.toLowerCase().contains("computer"),
-                "Se esperaba encontrar productos relacionados con computer");
-    }
+        assertTrue(resultado.toLowerCase().contains("computer"));
 
+        busqueda.buscar("COMPUTER");
+        resultado = busqueda.obtenerResultados();
+        assertTrue(resultado.toLowerCase().contains("computer"));
+    }
+    
     @Test
     @DisplayName("CP-016 Busqueda sin coincidencias")
     public void busquedaSinCoincidencias() {
