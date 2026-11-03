@@ -23,6 +23,9 @@ public class LoginPage {
     @FindBy(css = "div.validation-summary-errors")
     private WebElement resumenErrores;
 
+    @FindBy(css = "input.checkout-as-guest-button")
+    private WebElement botonInvitado;
+
     public LoginPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -44,6 +47,11 @@ public class LoginPage {
         return resumenErrores.getText().trim();
     }
 
+    public CheckoutPage continuarComoInvitado() {
+        botonInvitado.click();
+        Visual.pausa();
+        return new CheckoutPage(driver);
+    }
     private void escribirYEnviar(String correo, String clave) {
         campoCorreo.sendKeys(correo);
         campoClave.sendKeys(clave);
