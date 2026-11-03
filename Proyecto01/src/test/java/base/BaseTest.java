@@ -1,9 +1,11 @@
 package base;
 
+import java.util.Map;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 /**
  *
@@ -18,8 +20,16 @@ public abstract class BaseTest {
 
     @BeforeEach
     public void iniciarNavegador() {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        ChromeOptions opciones = new ChromeOptions();
+        opciones.addArguments("--window-size=1280,900");
+        opciones.setExperimentalOption("prefs", Map.of(
+                "credentials_enable_service", false,
+                "profile.password_manager_enabled", false,
+                "profile.password_manager_leak_detection", false));
+        if (Boolean.getBoolean("headless")) {
+            opciones.addArguments("--headless=new");
+        }
+        driver = new ChromeDriver(opciones);
         driver.get(URL_SITIO);
     }
 
