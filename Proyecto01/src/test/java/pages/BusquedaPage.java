@@ -46,4 +46,14 @@ public class BusquedaPage {
     public String obtenerResultados() {
         return resultadosBusqueda.getText();
     }
+    
+    public String buscarVacio() {
+        campoBusqueda.clear();
+        botonBuscar.click();
+        String mensaje = driver.switchTo().alert().getText();
+        driver.switchTo().alert().accept();
+
+        return mensaje;
+    }
+
 }
