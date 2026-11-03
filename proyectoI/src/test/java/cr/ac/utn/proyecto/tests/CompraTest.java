@@ -44,12 +44,13 @@ public class CompraTest extends BaseTest {
                 // Se llena la facturación con un correo único y se avanza por envío, pago y
                 // confirmación
                 pago.llenarFacturacion(NOMBRE, APELLIDO, GeneradorDatos.correoUnico(), PAIS, CIUDAD,
-                                DIRECCION, CODIGO_POSTAL, TELEFONO)
-                                .continuarFacturacion()
-                                .continuarMetodoEnvio()
-                                .continuarMetodoPago()
-                                .continuarInformacionPago()
-                                .confirmarOrden();
+                DIRECCION, CODIGO_POSTAL, TELEFONO)
+                .continuarFacturacion()
+                .continuarDireccionEnvio()
+                .continuarMetodoEnvio()
+                .continuarMetodoPago()
+                .continuarInformacionPago()
+                .confirmarOrden();
 
                 // Assert (Comprobación)
 
