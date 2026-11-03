@@ -1,3 +1,4 @@
+// Responsable: Emily María Alfaro González
 package cr.ac.utn.proyecto.tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,6 +19,7 @@ public class CuentaTest extends BaseTest {
     void editarInformacionCuenta() {
 
         // Arrange (Preparación)
+        //Se registra un usuario nuevo con correo único
         RegistroPage registro = new RegistroPage(driver).abrir().registrar("Prueba", "Equipo", GeneradorDatos.correoUnico(), CLAVE, CLAVE);
 
         // Act (Acción)
@@ -38,6 +40,7 @@ public class CuentaTest extends BaseTest {
         // Arrange (Preparación)
         RegistroPage registro = new RegistroPage(driver).abrir().registrar("Prueba", "Equipo", GeneradorDatos.correoUnico(), CLAVE, CLAVE);
 
+        // Se definen la clave nueva y una confirmación distinta
         String claveActual = CLAVE; // "Clave1234"
         String claveNueva = "Prueba123";
         String confirmacion = "Prueba456";

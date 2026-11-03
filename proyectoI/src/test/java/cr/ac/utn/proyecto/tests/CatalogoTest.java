@@ -1,3 +1,5 @@
+
+// Responsable: Emily María Alfaro González
 package cr.ac.utn.proyecto.tests;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -14,6 +16,7 @@ public class CatalogoTest extends BaseTest {
     void cambiarProductosPorPagina() {
 
         // Arrange (Preparación)
+        //Categoría books y cantidad mínima por página
         String categoria = "books";
         int cantidadEsperada = 4;
 

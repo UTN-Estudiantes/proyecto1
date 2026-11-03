@@ -1,3 +1,4 @@
+// Responsable: Emily María Alfaro González
 package cr.ac.utn.proyecto.tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,6 +17,7 @@ public class BusquedaTest extends BaseTest {
     void busquedaConResultados() {
 
         // Arrange (Preparación)
+        //Se define el texto que se espera que tenga resultados
         String textoBusqueda = "computer";
 
         // Act (Acción)
@@ -31,6 +33,7 @@ public class BusquedaTest extends BaseTest {
     @DisplayName("CP-013 Búsqueda con texto demasiado corto")
     void busquedaConTextoCorto() {
         // Arrange (Preparación)
+        // Se define un texto de 2 caracteres, por debajo del mínimo
         String textoBusqueda = "sk";
 
         // Act (Acción)
@@ -38,7 +41,7 @@ public class BusquedaTest extends BaseTest {
         ResultadosBusquedaPage resultados = new InicioPage(driver).abrir().buscar(textoBusqueda);
 
         // Assert (Comprobación)
-        // Se verifican los mensajes de error para la búsqueda con texto demcorto
+        // Se verifican los mensajes de error para la búsqueda con texto dem corto
         assertEquals("Search term minimum length is 3 characters", resultados.avisoBusqueda(), 
         "El aviso de texto demasiado corto no coincide.");
     }
