@@ -1,3 +1,4 @@
+// Responsable: Emily María Alfaro González
 package cr.ac.utn.proyecto.pages;
 
 import org.openqa.selenium.WebDriver;
@@ -32,6 +33,9 @@ public class CatalogoPage {
         return this;
     }
 
+    //En este método el primer producto se guarda en una variable local 
+    //antes de elegir la opción, porque un @FindBy se vuelve a buscar cada vez, 
+    // y se espera a que ese elemento quede obsoleto
     public CatalogoPage mostrarPorPagina(String cantidad) {
         WebElement primerProducto = listaProductos.get(0);
         Select select = new Select(listaDesplegable);

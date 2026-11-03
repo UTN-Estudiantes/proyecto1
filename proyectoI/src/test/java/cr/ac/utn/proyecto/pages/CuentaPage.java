@@ -1,3 +1,4 @@
+// Responsable: Emily María Alfaro González
 package cr.ac.utn.proyecto.pages;
 
 import org.openqa.selenium.WebDriver;
@@ -7,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import cr.ac.utn.proyecto.base.BaseTest;
 import cr.ac.utn.proyecto.base.Visual;
 
+//Esta clase representa la página de cuenta del usuario
 public class CuentaPage {
     private final WebDriver driver;
 
@@ -62,6 +64,8 @@ public class CuentaPage {
         return this;
     }
 
+    // Métodos para obtener los valores guardados en los campos de nombre y apellido
+    //se usa getAttribute("value") porque el contenido de un campo no sale con getText()
     public String nombreGuardado() {
         return campoNombre.getAttribute("value");
     }
@@ -80,6 +84,7 @@ public class CuentaPage {
         return this;
     }
 
+    // Método para obtener el mensaje de error de confirmación de contraseña
     public String errorConfirmacion() {
         return errorConfirmacion.getText();
     }
