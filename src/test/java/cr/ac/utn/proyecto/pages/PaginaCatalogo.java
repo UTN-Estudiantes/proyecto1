@@ -82,6 +82,9 @@ public class PaginaCatalogo {
     @FindBy(css = "#topcartlink a.ico-cart")
     private WebElement enlaceCarrito;
 
+    @FindBy(css = "#bar-notification span.close")
+    private WebElement botonCerrarNotificacion;
+
     public PaginaCatalogo(WebDriver driver) {
         this.driver = driver;
         this.espera = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -178,6 +181,7 @@ public class PaginaCatalogo {
     }
 
     public PaginaCarrito irAlCarrito() {
+        cerrarNotificacionVisible();
         enlaceCarrito.click();
         espera.until(ExpectedConditions.urlContains("/cart"));
         return new PaginaCarrito(driver);
@@ -188,5 +192,13 @@ public class PaginaCatalogo {
         new Select(lista).selectByVisibleText(textoVisible);
         espera.until(d -> !d.getCurrentUrl().equals(urlAnterior));
         return this;
+    }
+
+    /** El aviso de "agregado al carrito" tapa el enlace del carrito hasta que se cierra. */
+    private void cerrarNotificacionVisible() {
+        if (notificacion.isDisplayed()) {
+            botonCerrarNotificacion.click();
+            espera.until(ExpectedConditions.invisibilityOf(notificacion));
+        }
     }
 }

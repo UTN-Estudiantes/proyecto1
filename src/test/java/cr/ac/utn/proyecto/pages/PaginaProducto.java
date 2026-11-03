@@ -43,6 +43,9 @@ public class PaginaProducto {
     @FindBy(css = "#topcartlink a.ico-cart")
     private WebElement enlaceCarrito;
 
+    @FindBy(css = "#bar-notification span.close")
+    private WebElement botonCerrarNotificacion;
+
     @FindBy(css = "input.add-to-wishlist-button")
     private List<WebElement> botonesListaDeseos;
 
@@ -51,9 +54,6 @@ public class PaginaProducto {
 
     @FindBy(css = "a.ico-wishlist")
     private WebElement enlaceListaDeseos;
-
-    @FindBy(css = "#bar-notification a")
-    private List<WebElement> enlacesDeNotificacion;
 
     public PaginaProducto(WebDriver driver) {
         this.driver = driver;
@@ -67,11 +67,6 @@ public class PaginaProducto {
 
     public BigDecimal obtenerPrecio() {
         return new BigDecimal(precio.getText().trim());
-    }
-
-    public BigDecimal obtenerPrecioTrasCambio(BigDecimal precioAnterior) {
-        espera.until(d -> obtenerPrecio().compareTo(precioAnterior) != 0);
-        return obtenerPrecio();
     }
 
     public PaginaProducto indicarCantidad(String cantidad) {
@@ -122,10 +117,11 @@ public class PaginaProducto {
         return this;
     }
 
-    public PaginaProducto agregarALaComparacion() {
+    /** El sitio no muestra aviso: redirige directamente a la tabla de comparación. */
+    public PaginaComparacion agregarALaComparacion() {
         botonComparar.click();
-        espera.until(ExpectedConditions.visibilityOf(notificacion));
-        return this;
+        espera.until(ExpectedConditions.urlContains("/compareproducts"));
+        return new PaginaComparacion(driver);
     }
 
     public PaginaListaDeseos irALaListaDeDeseos() {
@@ -134,16 +130,18 @@ public class PaginaProducto {
         return new PaginaListaDeseos(driver);
     }
 
-    public PaginaComparacion irALaComparacion() {
-        espera.until(d -> !enlacesDeNotificacion.isEmpty());
-        enlacesDeNotificacion.get(0).click();
-        espera.until(ExpectedConditions.urlContains("/compareproducts"));
-        return new PaginaComparacion(driver);
-    }
-
     public PaginaCarrito irAlCarrito() {
+        cerrarNotificacionVisible();
         enlaceCarrito.click();
         espera.until(ExpectedConditions.urlContains("/cart"));
         return new PaginaCarrito(driver);
+    }
+
+    /** El aviso de "agregado al carrito" tapa el enlace del carrito hasta que se cierra. */
+    private void cerrarNotificacionVisible() {
+        if (notificacion.isDisplayed()) {
+            botonCerrarNotificacion.click();
+            espera.until(ExpectedConditions.invisibilityOf(notificacion));
+        }
     }
 }
