@@ -13,3 +13,19 @@ Thumbs.db
 # Temporales de Office
 ~$*
 *.tmp
+
+# NetBeans
+nbactions.xml
+nb-configuration.xml
+nbproject/
+
+# Archivos de trabajo interno del equipo (su contenido ya esta en el informe,
+# en el Excel maestro o en el enunciado del curso; no forman parte de la entrega)
+_tmp/
+docs/informe/seccion-*.md
+docs/avance/
+docs/guia-equipo/
+docs/plantillas/
+docs/enunciado/
+casos-de-prueba/por-persona/
+docs/hallazgos/
