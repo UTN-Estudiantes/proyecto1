@@ -18,3 +18,7 @@ mvn test -Dritmo=0         # sin pausas visuales
 mvn test -Dheadless=true   # sin ventana
 ```
 Complete este README con la información de su grupo y cómo ejecutar su proyecto.
+
+## Evidencia de ejecución
+
+![Resultado de mvn test](evidencia-ejecucion.png)
