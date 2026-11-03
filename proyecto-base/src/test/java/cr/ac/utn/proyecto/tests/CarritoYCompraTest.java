@@ -6,13 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import cr.ac.utn.proyecto.base.BaseTest;
 import cr.ac.utn.proyecto.pages.CartPage;
 import cr.ac.utn.proyecto.pages.CategoryPage;
+import cr.ac.utn.proyecto.pages.CheckoutPage;
 import cr.ac.utn.proyecto.pages.HomePage;
 import cr.ac.utn.proyecto.pages.ProductPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * Pruebas automatizadas con POM para RF-05 (Carrito) y RF-06 (Productos con opciones).
+ * Pruebas automatizadas con POM para RF-05 (Carrito), RF-06 (Productos con opciones) y RF-09 (Proceso de compra).
  */
 class CarritoYCompraTest extends BaseTest {
 
@@ -111,5 +112,50 @@ class CarritoYCompraTest extends BaseTest {
 
         // Assert
         assertTrue(producto.mensajeNotificacion().contains("Please select HDD"));
+    }
+
+    @Test
+    @DisplayName("CP-030 Bloqueo de inicio de Checkout cuando no se aceptan los terminos de servicio")
+    void checkoutSinAceptarTerminosMuestraAdvertencia() {
+        // Arrange
+        CartPage carrito = new HomePage(driver).abrir()
+                .irACategoria("Books")
+                .agregarAlCarrito(LIBRO)
+                .irAlCarrito();
+
+        // Act
+        carrito.intentarCheckoutSinTerminos();
+
+        // Assert
+        assertTrue(carrito.textoAdvertenciaTerminos()
+                .contains("Please accept the terms of service before the next step."));
+    }
+
+    @Test
+    @DisplayName("CP-029 Flujo completo de compra exitosa con usuario registrado")
+    void compraCompletaDeUnProducto() {
+        // Arrange
+        String correo = "compra.utn." + System.currentTimeMillis() + "@test.com";
+        new HomePage(driver).abrir()
+                .irARegistro()
+                .registrarUsuario("Valeria", "Castro", correo, "Password123", "Password123");
+
+        // Act
+        CheckoutPage checkout = new HomePage(driver).abrir()
+                .irACategoria("Books")
+                .agregarAlCarrito(LIBRO)
+                .irAlCarrito()
+                .aceptarTerminos()
+                .irACheckout()
+                .llenarDireccionFacturacion(
+                        "Costa Rica", "Alajuela", "Calle Central 123", "20101", "88888888")
+                .continuarDireccionEnvio()
+                .continuarMetodoEnvio()
+                .elegirPagoContraEntregaYContinuar()
+                .continuarInformacionPago()
+                .finalizar();
+
+        // Assert
+        assertEquals("Your order has been successfully processed!", checkout.mensajeConfirmacion());
     }
 }
