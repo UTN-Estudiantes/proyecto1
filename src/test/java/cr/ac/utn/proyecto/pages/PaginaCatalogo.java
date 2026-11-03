@@ -144,8 +144,10 @@ public class PaginaCatalogo {
 
     public PaginaCatalogo agregarAlCarritoElProducto(String nombre) {
         for (WebElement producto : productos) {
+            // Se usa findElement(By) porque el nombre y el botón se buscan dentro de cada producto del listado, y @FindBy no permite buscar dentro de un elemento variable.
             String nombreProducto = producto.findElement(By.cssSelector("h2.product-title a")).getText().trim();
             if (nombreProducto.equalsIgnoreCase(nombre)) {
+                // Mismo motivo: el botón pertenece al producto cuyo nombre coincidió.
                 producto.findElement(By.cssSelector("input.product-box-add-to-cart-button")).click();
                 espera.until(ExpectedConditions.visibilityOf(notificacion));
                 return this;

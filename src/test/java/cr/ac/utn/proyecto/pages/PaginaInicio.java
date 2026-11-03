@@ -48,6 +48,9 @@ public class PaginaInicio {
     @FindBy(css = "#topcartlink a.ico-cart")
     private WebElement enlaceCarrito;
 
+    @FindBy(css = "div.header-links a.ico-wishlist")
+    private WebElement enlaceListaDeseos;
+
     public PaginaInicio(WebDriver driver) {
         this.driver = driver;
         this.espera = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -83,6 +86,18 @@ public class PaginaInicio {
         enlaceCarrito.click();
         espera.until(ExpectedConditions.urlContains("/cart"));
         return new PaginaCarrito(driver);
+    }
+
+    public PaginaListaDeseos irALaListaDeDeseos() {
+        enlaceListaDeseos.click();
+        espera.until(ExpectedConditions.urlContains("/wishlist"));
+        return new PaginaListaDeseos(driver);
+    }
+
+    public PaginaCuenta irAMiCuenta() {
+        enlaceCuenta.click();
+        espera.until(ExpectedConditions.urlContains("/customer/info"));
+        return new PaginaCuenta(driver);
     }
 
     public PaginaBusquedaAvanzada irABusquedaAvanzada() {
