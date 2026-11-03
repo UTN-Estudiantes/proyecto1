@@ -40,6 +40,9 @@ public class InicioPage {
  
     @FindBy(css = "input.search-box-button")
     private WebElement botonBuscar;
+
+    @FindBy(css = "span.cart-qty")
+    private WebElement cantidadCarrito;
     
     public InicioPage(WebDriver driver) {
         this.driver = driver;
@@ -102,5 +105,10 @@ public class InicioPage {
         Visual.pausa();
     return new CategoriaPage(driver);  
     }
+        /** El sitio muestra la cantidad entre parentesis, por ejemplo (1). */
+    public int cantidadEnCarrito() {
+    return Integer.parseInt(cantidadCarrito.getText().replaceAll("[()]", ""));
+    }
+
     
 }
