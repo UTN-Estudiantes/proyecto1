@@ -79,7 +79,7 @@ public class ComparacionPage {
         espera.until(ExpectedConditions.numberOfElementsToBe(
                 By.cssSelector("tr.product-name a"), 2));
 
-        // El segundo botón corresponde a la laptop.
+        // By se usa aquí porque el botón Remove se repite por cada producto; se toma el segundo, que es el de la laptop (el primer producto agregado).
         WebElement botonLaptop = driver.findElements(
                 By.cssSelector("tr.overview .remove-button")).get(1);
 
@@ -102,8 +102,6 @@ public class ComparacionPage {
 
         espera.until(ExpectedConditions.numberOfElementsToBe(
                 By.cssSelector("tr.product-name a"), 0));
-
-        System.out.println(driver.findElement(By.tagName("body")).getText());
 
         Visual.pausa();
 
