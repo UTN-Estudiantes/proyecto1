@@ -2,8 +2,8 @@
 
 Automatización de pruebas funcionales sobre https://demowebshop.tricentis.com con Java 17, Maven, Selenium 4, JUnit 5, Page Factory y Page Object Model.
 
-**Grupo:** _completar_
-**Integrantes:** _completar_
+**Grupo:** Grupo JSSK
+**Integrantes:** Kendall Rodríguez Sáenz - Sebastián Rojas Hernandez - Sebastián Salazar Díaz - Jordan Herrera.
 
 ## Qué se probó
 
