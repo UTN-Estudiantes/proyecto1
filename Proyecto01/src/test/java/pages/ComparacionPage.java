@@ -11,6 +11,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.By;
 
 /**
  *
@@ -54,4 +55,15 @@ public class ComparacionPage {
         wait.until(ExpectedConditions.visibilityOf(tablaComparacion));
         return tablaComparacion.getText();
     }
+    
+    public ComparacionPage quitarPrimerProducto() {
+        WebElement boton = driver.findElement(By.cssSelector(".remove-button"));
+        boton.click();
+        return this;
+    }
+
+    public int cantidadProductosComparados() {
+        return driver.findElements(By.cssSelector(".compare-products-table .product-name")).size();
+    }
+
 }

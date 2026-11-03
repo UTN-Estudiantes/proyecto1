@@ -9,6 +9,7 @@ import pages.ComparacionPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  *
@@ -30,5 +31,22 @@ public class ComparacionTest extends BaseTest {
 
         assertTrue(tabla.contains("14.1-inch Laptop"));
         assertTrue(tabla.contains("Computing and Internet"));
+    }
+    
+    @Test
+    @DisplayName("CP-026 Quitar un producto de la comparacion")
+    public void quitarProductoComparacion() {
+        ComparacionPage comparacion = new ComparacionPage(driver);
+
+        comparacion.abrirProducto(URL_SITIO + "/141-inch-laptop");
+        comparacion.agregarAComparacion();
+
+        comparacion.abrirProducto(URL_SITIO + "/computing-and-internet");
+        comparacion.agregarAComparacion();
+
+        comparacion.abrirComparacion(URL_SITIO);
+        comparacion.quitarPrimerProducto();
+
+        assertEquals(1, comparacion.cantidadProductosComparados());
     }
 }
