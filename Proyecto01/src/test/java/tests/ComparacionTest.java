@@ -34,7 +34,7 @@ public class ComparacionTest extends BaseTest {
     }
     
     @Test
-    @DisplayName("CP-026 Quitar un producto de la comparacion")
+    @DisplayName("CP-026 Quitar producto y limpiar lista de comparacion")
     public void quitarProductoComparacion() {
         ComparacionPage comparacion = new ComparacionPage(driver);
 
@@ -46,7 +46,9 @@ public class ComparacionTest extends BaseTest {
 
         comparacion.abrirComparacion(URL_SITIO);
         comparacion.quitarPrimerProducto();
-
         assertEquals(1, comparacion.cantidadProductosComparados());
+
+        comparacion.limpiarComparacion();
+        assertEquals(0, comparacion.cantidadProductosComparados());
     }
 }

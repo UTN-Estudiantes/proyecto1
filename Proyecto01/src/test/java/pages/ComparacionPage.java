@@ -65,5 +65,10 @@ public class ComparacionPage {
     public int cantidadProductosComparados() {
         return driver.findElements(By.cssSelector(".compare-products-table .product-name")).size();
     }
-
+    
+    public ComparacionPage limpiarComparacion() {
+        WebElement boton = driver.findElement(By.cssSelector(".clear-list"));
+        boton.click();
+        return this;
+    }
 }
