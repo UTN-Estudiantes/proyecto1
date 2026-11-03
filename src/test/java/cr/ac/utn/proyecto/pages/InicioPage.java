@@ -41,6 +41,10 @@ public class InicioPage {
     @FindBy(css = "input.search-box-button")
     private WebElement botonBuscar;
 
+    // Se limita al encabezado porque el pie de pagina tambien tiene un a.ico-cart.
+    @FindBy(css = "div.header-links a.ico-cart")
+    private WebElement enlaceCarrito;
+
     @FindBy(css = "span.cart-qty")
     private WebElement cantidadCarrito;
     
@@ -105,6 +109,13 @@ public class InicioPage {
         Visual.pausa();
     return new CategoriaPage(driver);  
     }
+    public CarritoPage irAlCarrito() {
+    enlaceCarrito.click();
+    Visual.pausa();
+    return new CarritoPage(driver);
+    }
+
+
         /** El sitio muestra la cantidad entre parentesis, por ejemplo (1). */
     public int cantidadEnCarrito() {
     return Integer.parseInt(cantidadCarrito.getText().replaceAll("[()]", ""));
