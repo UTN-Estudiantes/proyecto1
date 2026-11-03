@@ -9,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 /** Pagina de resultados de busqueda (/search). Page Factory. */
 public class ResultadosBusquedaPage {
 
-    // Puede quedar vacia (busqueda sin resultados): por eso es una lista.
+    // Puede quedar vacia (busqueda sin resultados).
     @FindBy(css = "div.product-item h2.product-title a")
     private List<WebElement> nombres;
 

@@ -78,27 +78,13 @@ public class InicioPage {
     }
 
     public ResultadosBusquedaPage buscar(String texto) {
-      campoBusqueda.sendKeys(texto);
-      Visual.pausa();
-      botonBuscar.click();
-      Visual.pausa();
-      return new ResultadosBusquedaPage(driver);
-    }
-    
-    /** Correo que sale arriba; vacio si no hay sesion. */
-    public String correoEnEncabezado() {
-        return enlaceCuenta.isEmpty() ? "" : enlaceCuenta.get(0).getText().trim();
+        campoBusqueda.sendKeys(texto);
+        Visual.pausa();
+        botonBuscar.click();
+        Visual.pausa();
+        return new ResultadosBusquedaPage(driver);
     }
 
-    public boolean haySesionIniciada() {
-        return !enlaceSalir.isEmpty();
-    }
-    
-    /*
-     * @FindBy no acepta parametros: el enlace depende de la categoria, por eso se usa driver.findElement + 
-
-     * Las subcategorias (por ejemplo notebooks) estan ocultas hasta pasar el mouse por su categoria.
-    */
     public CategoriaPage irACategoria(String slug) {
         WebElement itemMenu = driver.findElement(By.cssSelector("ul.top-menu > li:has(a[href='/" + slug + "'])"));
         new Actions(driver).moveToElement(itemMenu).perform();
@@ -107,19 +93,26 @@ public class InicioPage {
         Visual.pausa();
         enlace.click();
         Visual.pausa();
-    return new CategoriaPage(driver);  
+        return new CategoriaPage(driver);
     }
+
     public CarritoPage irAlCarrito() {
-    enlaceCarrito.click();
-    Visual.pausa();
-    return new CarritoPage(driver);
+        enlaceCarrito.click();
+        Visual.pausa();
+        return new CarritoPage(driver);
     }
 
+    /** Correo que sale arriba; vacio si no hay sesion. */
+    public String correoEnEncabezado() {
+        return enlaceCuenta.isEmpty() ? "" : enlaceCuenta.get(0).getText().trim();
+    }
 
-        /** El sitio muestra la cantidad entre parentesis, por ejemplo (1). */
+    public boolean haySesionIniciada() {
+        return !enlaceSalir.isEmpty();
+    }
+
+    /** El sitio muestra la cantidad entre parentesis*/
     public int cantidadEnCarrito() {
-    return Integer.parseInt(cantidadCarrito.getText().replaceAll("[()]", ""));
+        return Integer.parseInt(cantidadCarrito.getText().replaceAll("[()]", ""));
     }
-
-    
 }
