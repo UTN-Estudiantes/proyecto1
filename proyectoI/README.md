@@ -138,8 +138,8 @@ mvn test -Dtest=CompraTest
 ```bash
 mvn test -Dtest=ComparacionTest
 ```
-### Boletines
 
+### Boletines
 
 ```bash
 mvn test -Dtest=BoletinTest
