@@ -14,6 +14,7 @@ public class ComparacionTest extends BaseTest {
 
         private static final String RUTA_LAPTOP = "141-inch-laptop";
         private static final String NOMBRE_LAPTOP = "14.1-inch Laptop";
+        private static final String ID_LAPTOP = "31";
         private static final String RUTA_ZAPATILLA = "blue-and-green-sneaker";
         private static final String NOMBRE_ZAPATILLA = "Blue and green Sneaker";
 
@@ -54,8 +55,8 @@ public class ComparacionTest extends BaseTest {
 
                 // Act (Acción)
 
-                // Se pulsa Remove en el primer producto
-                comparacion.quitarPrimerProducto();
+                // Se pulsa Remove en el producto
+                comparacion.quitarProducto(ID_LAPTOP);
 
                 // Assert (Comprobación)
 
