@@ -1,9 +1,12 @@
 package cr.ac.utn.proyecto.pages;
 
+import java.time.Duration;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -59,9 +62,14 @@ public class CartPage {
         return listaFilasItems.size();
     }
     public void actualizarCantidadPrimerProducto(String nuevaCantidad) {
+        String subtotalAnterior = obtenerSubtotalItem();
         txtPrimeraCantidad.clear();
         txtPrimeraCantidad.sendKeys(nuevaCantidad);
         btnUpdateCart.click();
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(d -> !d.findElements(By.cssSelector("span.product-subtotal")).isEmpty()
+                        && !d.findElement(By.cssSelector("span.product-subtotal"))
+                                .getText().equals(subtotalAnterior));
     }
     public void eliminarPrimerProducto() {
         if (!listaCheckboxesEliminar.isEmpty()) {
@@ -89,7 +97,7 @@ public class CartPage {
     public String obtenerMensajeAdvertenciaTerminos() {
         return lblWarningTerms.getText();
     }
-        public String obtenerSubtotalItem() {
+    public String obtenerSubtotalItem() {
         return lblSubtotalItem.getText();
     }
 }

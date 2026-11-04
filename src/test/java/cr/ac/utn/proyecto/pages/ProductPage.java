@@ -1,9 +1,11 @@
 package cr.ac.utn.proyecto.pages;
 
+import java.time.Duration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ProductPage {
     private WebDriver driver;
@@ -71,10 +73,17 @@ public class ProductPage {
 
     public void agregarCarrito() {
         btnAddToCart.click();
+        esperarNotificacion();
     }
 
     public void agregarWishlist() {
         btnAddToWishlist.click();
+        esperarNotificacion();
+    }
+
+    private void esperarNotificacion() {
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(d -> !lblNotificacion.getText().isBlank());
     }
 
     // Armar las opciones obligatorias del computador del reto RF-06.

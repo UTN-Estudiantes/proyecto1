@@ -1,10 +1,14 @@
 package cr.ac.utn.proyecto.pages;
 
+import java.time.Duration;
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import java.util.List;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WishlistPage {
     private WebDriver driver;
@@ -42,13 +46,19 @@ public class WishlistPage {
         return listaNombresWishlist.size();
     }
 
-     //Marca el primer producto de la wishlist y lo transfiere al carrito
-     //Debe devolver la página del carrito
+    // Marca el primer producto de la wishlist y espera a que aparezca en el carrito.
     public CartPage moverPrimerProductoCarrito() {
-        if (!listaCheckboxesMoverAlCarrito.isEmpty()) {
-            listaCheckboxesMoverAlCarrito.get(0).click();
-            btnMoverAlCarrito.click();
+        if (listaCheckboxesMoverAlCarrito.isEmpty()) {
+            throw new NoSuchElementException("La wishlist no contiene productos para mover al carrito");
         }
+
+        listaCheckboxesMoverAlCarrito.get(0).click();
+        btnMoverAlCarrito.click();
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(d -> d.getCurrentUrl().contains("/cart"));
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(d -> !d.findElements(By.cssSelector("tr.cart-item-row")).isEmpty());
+
         return new CartPage(driver);
     }
     public void eliminarPrimerProducto() {
