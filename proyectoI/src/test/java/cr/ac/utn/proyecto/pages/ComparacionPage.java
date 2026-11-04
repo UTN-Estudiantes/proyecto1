@@ -13,6 +13,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+// Se usa By en las esperas de cantidad porque ExpectedConditions.numberOfElementsToBe
+// recibe un By, no un @FindBy. Es el mismo selector de nombresProductos.
 public class ComparacionPage {
 
     private final WebDriver driver;
@@ -25,6 +27,9 @@ public class ComparacionPage {
 
     @FindBy(css = "a.clear-list")
     private WebElement enlaceLimpiarLista;
+
+    @FindBy(css = "div.compare-products-page div.page-body")
+    private WebElement avisoListaVacia;
 
     public ComparacionPage(WebDriver driver) {
         this.driver = driver;
@@ -41,8 +46,7 @@ public class ComparacionPage {
 
         espera.until(ExpectedConditions.urlMatches("compareproducts/?$"));
 
-        espera.until(ExpectedConditions.visibilityOfElementLocated(
-                By.cssSelector("tr.product-name a")));
+        espera.until(driver -> !nombresProductos.isEmpty());
 
         Visual.pausa();
 
@@ -72,18 +76,17 @@ public class ComparacionPage {
                 .toList();
     }
 
-    public ComparacionPage quitarPrimerProducto() {
+    public ComparacionPage quitarProducto(String idProducto) {
 
         WebDriverWait espera = new WebDriverWait(driver, Duration.ofSeconds(20));
 
         espera.until(ExpectedConditions.numberOfElementsToBe(
                 By.cssSelector("tr.product-name a"), 2));
 
-        // By se usa aquí porque el botón Remove se repite por cada producto; se toma el segundo, que es el de la laptop (el primer producto agregado).
-        WebElement botonLaptop = driver.findElements(
-                By.cssSelector("tr.overview .remove-button")).get(1);
-
-        botonLaptop.click();
+        // Localizador con parámetro: el botón Remove es igual para todos los productos y solo
+        // cambia el id al final de su onclick; @FindBy no acepta parámetros.
+        driver.findElement(By.cssSelector(
+                "input.remove-button[onclick$=\"/remove/" + idProducto + "')\"]")).click();
 
         // Esperar hasta que quede solamente un producto.
         espera.until(ExpectedConditions.numberOfElementsToBe(
@@ -112,10 +115,8 @@ public class ComparacionPage {
 
         WebDriverWait espera = new WebDriverWait(driver, Duration.ofSeconds(15));
 
-        WebElement mensaje = espera.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        By.xpath("//*[contains(text(),'You have no items to compare.')]")));
+        espera.until(ExpectedConditions.visibilityOf(avisoListaVacia));
 
-        return mensaje.getText();
+        return avisoListaVacia.getText();
     }
 }
