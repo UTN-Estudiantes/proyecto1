@@ -11,7 +11,7 @@ José David Carvajal Jiménez
 - Yesenia Michelle Pérez Rodríguez
 
 ### Sitio bajo prueba
-[https://demowebshop.tricentis.com]
+https://demowebshop.tricentis.com
 
 ---
 
@@ -49,7 +49,7 @@ proyectoI/
                             │   ├── ListaDeseosPage.java
                             │   ├── PagoPage.java
                             │   ├── ComparacionPage.java
-                            │   └── README.md
+                            │   └── BoletinEncuestaPage.java
                             │
                             └── tests/
                                 ├── LoginTest.java
@@ -61,7 +61,7 @@ proyectoI/
                                 ├── ListaDeseosTest.java
                                 ├── CompraTest.java
                                 ├── ComparacionTest.java
-                                └── README.md
+                                └── BoletinTest.java
 ```
 
 ## Descripción de los archivos
@@ -86,6 +86,7 @@ proyectoI/
 - `ListaDeseosPage.java`: página de la lista de deseos, con opciones de movimiento al carrito y eliminación.
 - `PagoPage.java`: gestiona los pasos del proceso de compra, desde la facturación hasta la confirmación de la orden.
 - `ComparacionPage.java`: gestiona la comparación de productos, la eliminación de productos y la limpieza de la lista.
+- `BoletinEncuestaPage.java`: bloque de suscripción al boletín en el pie de página y su aviso de resultado.
 
 ### tests
 
@@ -98,6 +99,7 @@ proyectoI/
 - `ListaDeseosTest.java`: CP-029, gestión de la lista de deseos.
 - `CompraTest.java`: CP-031 a CP-033, automatización del proceso de compra y confirmación de órdenes.
 - `ComparacionTest.java`: CP-036 a CP-038, comparación de dos productos, eliminación de un producto y limpieza de la lista de comparación.
+- `BoletinTest.java`: CP-039 y CP-040, suscripción al boletín con correo válido y con correo inválido.
 
 ## Cómo ejecutar las pruebas
 
@@ -135,6 +137,12 @@ mvn test -Dtest=CompraTest
 
 ```bash
 mvn test -Dtest=ComparacionTest
+```
+### Boletines
+
+
+```bash
+mvn test -Dtest=BoletinTest
 ```
 
 ### Opciones generales
