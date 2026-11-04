@@ -30,4 +30,3 @@ mvn test "-Dtest=CompraHistorialTest"
 mvn test "-Dritmo=0"
 ```
 
-Las pruebas acceden al sitio externo y requieren conexión a Internet y Google Chrome. Los reportes de JUnit/Surefire se generan en `target/surefire-reports/`.
